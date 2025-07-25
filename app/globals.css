@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfbfb; /* blush white */
+  --primary: #eab5c5; /* blush pink */
+  --accent-buttons: #d17ba5; /* dusty rose */
+  --text-primary: #1e1e1e; /* deep gray */
+  --text-secondary: #6b7280; /* cool gray 500 */
+  --sidebar: #f9f5f7; /* light rose */
+  --border-stroke: #e5e7eb; /* gray-200 */
+  --hover-focus: #fadce5; /* soft pink */
 }
 
 @theme inline {
@@ -14,13 +20,48 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0a0a; /* Keeping dark background for dark mode */
+    --foreground: #ededed; /* Keeping dark foreground for dark mode */
+    --primary: #eab5c5;
+    --accent-buttons: #d17ba5;
+    --text-primary: #ededed; /* Adjusting text color for dark mode */
+    --text-secondary: #9ca3af; /* Adjusting secondary text color for dark mode */
+    --sidebar: #1f2937; /* Darker sidebar for dark mode */
+    --border-stroke: #374151; /* Darker border for dark mode */
+    --hover-focus: #2c3e50; /* Darker hover for dark mode */
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid var(--accent-buttons);
+    border-right-color: var(--primary);
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--accent-buttons);
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
 }
