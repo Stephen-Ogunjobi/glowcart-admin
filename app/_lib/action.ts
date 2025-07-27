@@ -6,6 +6,7 @@ import {
   uploadProductImage,
   deleteProductImage,
 } from "./data-services";
+import { redirect } from "next/navigation";
 
 export async function CreateUpdateData(
   updatedProduct: Partial<Product>,
@@ -39,4 +40,14 @@ export async function CreateUpdateData(
   revalidatePath(`/admin/products/${updatedProduct.id}`);
 
   return result;
+}
+
+export async function revalidateProducts() {
+  revalidatePath("/admin/products");
+}
+
+export async function revalidateRedirect(id: string) {
+  revalidatePath(`/admin/products/${id}`);
+  revalidatePath("/admin/products");
+  redirect("/admin/products");
 }

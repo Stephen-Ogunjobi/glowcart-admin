@@ -2,13 +2,15 @@ import EditProductSection from "@/app/_components/EditProductSection";
 import { getProduct } from "@/app/_lib/data-services";
 import Image from "next/image";
 import Link from "next/link";
-import { FaList, FaTrash } from "react-icons/fa";
+import { FaList } from "react-icons/fa";
+import DeleteProduct from "@/app/_components/DeleteProduct";
 
 export default async function Page({
-  params: { productId },
+  params,
 }: {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) {
+  const { productId } = await params;
   const product = await getProduct(productId);
 
   return (
@@ -98,17 +100,7 @@ export default async function Page({
             <span>All Products</span>
           </Link>
 
-          <button
-            className="px-4 py-2 rounded-md transition-colors flex items-center space-x-2"
-            style={{
-              backgroundColor: "#dc2626",
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            <FaTrash />
-            <span>Delete Product</span>
-          </button>
+          <DeleteProduct productId={productId} />
         </div>
       </div>
     </div>

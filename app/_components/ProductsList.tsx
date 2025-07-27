@@ -1,6 +1,7 @@
 import React from "react";
 import { getProducts } from "../_lib/data-services";
 import ProductCard from "./ProductCard";
+import CreateNewProduct from "./CreateNewProduct";
 
 export default async function ProductsList() {
   const products = await getProducts();
@@ -10,6 +11,7 @@ export default async function ProductsList() {
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}
+      <CreateNewProduct />
     </div>
   );
 }

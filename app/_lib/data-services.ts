@@ -30,6 +30,28 @@ export async function getProduct(id: string) {
   return product;
 }
 
+export async function createProduct(product: Product) {
+  const { data: newProduct, error } = await supabase
+    .from("products")
+    .insert(product)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Product could not be created");
+  }
+
+  return newProduct;
+}
+
+export async function deleteProduct(id: string) {
+  const { error } = await supabase.from("products").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Product could not be deleted");
+  }
+}
+
 export async function updateProduct(product: Partial<Product>) {
   const { data, error } = await supabase
     .from("products")
