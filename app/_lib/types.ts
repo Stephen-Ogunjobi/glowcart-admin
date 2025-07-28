@@ -16,5 +16,6 @@ export interface Order {
   customer_id: number;
   status: string;
   total: number;
+  name: string;
   shipping_address: string;
 }
