@@ -9,3 +9,12 @@ export interface Product {
   image_url: string;
   skin_type: string[];
 }
+
+export interface Order {
+  id: number;
+  created_at: string;
+  customer_id: number;
+  status: string;
+  total: number;
+  shipping_address: string;
+}

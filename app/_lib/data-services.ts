@@ -120,3 +120,14 @@ export async function deleteProductImage(image_url: string) {
     console.log("Error processing delete:", error);
   }
 }
+
+export async function getOrders() {
+  const { data: orders, error } = await supabase.from("orders").select("*");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Orders could not be loaded");
+  }
+
+  return orders;
+}
