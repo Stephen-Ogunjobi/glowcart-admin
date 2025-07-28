@@ -1,9 +1,31 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { getOrders } from "@/app/_lib/data-services";
 import Order from "./Order";
+import { Order as OrderType } from "@/app/_lib/types";
+import { useSearchParams } from "next/navigation";
 
-export default async function OrdersList() {
-  const orders = await getOrders();
+export default function OrdersList() {
+  const [orders, setOrders] = useState<OrderType[]>([]);
+  const searchParams = useSearchParams();
+  const activeSort = searchParams.get("sort");
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const data = await getOrders(activeSort || undefined);
+        setOrders(data);
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      } 
+    }
+
+    fetchOrders();
+  }, [activeSort]); 
+
+  
+
   return (
     <div
       className="w-full overflow-hidden rounded-lg border shadow-sm"

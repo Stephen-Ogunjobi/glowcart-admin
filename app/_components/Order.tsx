@@ -2,6 +2,7 @@
 import React from "react";
 import { Order as OrderType } from "@/app/_lib/types";
 import OrderActions from "./OrderActions";
+import { useSearchParams } from "next/navigation";
 
 const statusColor: Record<string, string> = {
   pending: "text-yellow-200 bg-yellow-900/50 border-yellow-700",
@@ -13,6 +14,15 @@ const statusColor: Record<string, string> = {
 };
 
 export default function Order({ order }: { order: OrderType }) {
+  const searchParams = useSearchParams();
+  const activeFilter = searchParams.get("filter");
+
+  if (activeFilter && activeFilter !== "all") {
+    if (order.status !== activeFilter) {
+      return null;
+    }
+  }
+
   return (
     <tr
       className="transition-colors duration-200"

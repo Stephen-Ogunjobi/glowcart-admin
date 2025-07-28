@@ -26,7 +26,7 @@ export default function OrderActions({ order }: { order: OrderType }) {
       >
         <FaEye className="w-3.5 h-3.5" />
       </Link>
-      {order.status !== "delivered" && (
+      {order.status === "delivered" && (
         <button
           className="inline-flex items-center justify-center w-8 h-8 rounded-md border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-20"
           style={{

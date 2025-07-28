@@ -121,8 +121,26 @@ export async function deleteProductImage(image_url: string) {
   }
 }
 
-export async function getOrders() {
-  const { data: orders, error } = await supabase.from("orders").select("*");
+export async function getOrders(sortBy?: string) {
+  let query = supabase.from("orders").select("*");
+
+  if (sortBy) {
+    const [field, direction] = sortBy.split("-");
+    // Map the sort fields from the UI to the database columns
+    const sortField =
+      field === "startDate"
+        ? "created_at"
+        : field === "totalPrice"
+        ? "total"
+        : "created_at"; // default sort
+
+    query = query.order(sortField, { ascending: direction === "asc" });
+  } else {
+    // Default sort by created_at desc if no sort specified
+    query = query.order("created_at", { ascending: false });
+  }
+
+  const { data: orders, error } = await query;
 
   if (error) {
     console.log(error);

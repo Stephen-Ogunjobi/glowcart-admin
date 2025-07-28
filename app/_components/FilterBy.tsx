@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function FilterBy() {
   const options = [
@@ -9,6 +10,18 @@ export default function FilterBy() {
     { value: "shipped", label: "Shipped" },
     { value: "delivered", label: "Delivered" },
   ];
+
+  const searchParams = useSearchParams();
+
+  const activeFilter = searchParams.get("filter");
+
+  const router = useRouter();
+
+  function handleFilter(value: string) {
+    const params = new URLSearchParams(searchParams);
+    params.set("filter", value);
+    router.push(`?${params.toString()}`);
+  }
 
   return (
     <div className="flex  items-center gap-2">
@@ -21,10 +34,14 @@ export default function FilterBy() {
       <div className="flex flex-wrap items-center gap-2">
         {options.map((option) => (
           <button
+            onClick={() => handleFilter(option.value)}
             key={option.value}
-            className="px-3 bg-gray-900 py-1.5 text-sm font-medium rounded-md border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-20"
+            className={`px-3 bg-gray-900 py-1.5 text-sm font-medium rounded-md border
+             transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-20 ${
+               option.value === activeFilter ? "bg-gray-700" : ""
+             }`}
             style={{
-              //   backgroundColor: "var(--background)",
+              //   backgroundColor: "var(--background )",
               borderColor: "var(--border-stroke)",
               color: "var(--text-primary)",
             }}

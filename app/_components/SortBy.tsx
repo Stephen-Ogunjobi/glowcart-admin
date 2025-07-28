@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { FaSort } from "react-icons/fa";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SortBy() {
   const options = [
@@ -12,6 +13,16 @@ export default function SortBy() {
     },
     { value: "totalPrice-asc", label: "Sort by amount (low first)" },
   ];
+
+  const searchParams = useSearchParams();
+  const activeSort = searchParams.get("sort");
+  const router = useRouter();
+
+  function handleSort(e: React.ChangeEvent<HTMLSelectElement>) {
+    const params = new URLSearchParams(searchParams);
+    params.set("sort", e.target.value);
+    router.push(`?${params.toString()}`);
+  }
 
   return (
     <div className="flex items-center gap-2">
@@ -25,10 +36,11 @@ export default function SortBy() {
         <select
           className="appearance-none bg-gray-900 pl-3 pr-10 py-1.5 text-sm font-medium rounded-md border focus:outline-none focus:ring-2 focus:ring-opacity-20"
           style={{
-            // backgroundColor: "var(--background)",
             borderColor: "var(--border-stroke)",
             color: "var(--text-primary)",
           }}
+          onChange={handleSort}
+          value={activeSort || ""}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = "var(--hover-focus)";
             e.currentTarget.style.borderColor = "var(--accent-buttons)";
@@ -38,13 +50,13 @@ export default function SortBy() {
             e.currentTarget.style.borderColor = "var(--border-stroke)";
           }}
         >
+          <option value="">Select sorting option</option>
           {options.map((option) => (
             <option
-              value={option.value}
               key={option.value}
+              value={option.value}
               className="bg-gray-900"
               style={{
-                // backgroundColor: "var(--background)",
                 color: "var(--text-primary)",
               }}
             >
@@ -53,7 +65,7 @@ export default function SortBy() {
           ))}
         </select>
         <div
-          className="pointer-events-none  absolute inset-y-0 right-0 flex items-center px-2"
+          className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2"
           style={{ color: "var(--text-secondary)" }}
         >
           <FaSort className="w-3 h-3" />
