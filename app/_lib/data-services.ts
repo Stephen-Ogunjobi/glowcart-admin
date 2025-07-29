@@ -1,13 +1,12 @@
 import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
-import { Product } from "@/app/_lib/types";
+import { Product, Order } from "@/app/_lib/types";
 
 export async function getProducts() {
   const { data: products, error } = await supabase.from("products").select("*");
 
   if (error) {
-    console.log(error);
-    throw new Error("products could not be loaded");
+    throw new Error("Products could not be loaded");
   }
 
   return products;
@@ -20,10 +19,7 @@ export async function getProduct(id: string) {
     .eq("id", id)
     .single();
 
-  console.log("fetching products");
-
   if (error) {
-    console.log(error);
     notFound();
   }
 
@@ -61,7 +57,6 @@ export async function updateProduct(product: Partial<Product>) {
     .single();
 
   if (error) {
-    console.log(error);
     throw new Error("Product could not be updated");
   }
   return data;
@@ -81,7 +76,6 @@ export async function uploadProductImage(
     .upload(filePath, imageFile);
 
   if (uploadError) {
-    console.log("Upload error:", uploadError);
     throw new Error("Image could not be uploaded");
   }
 
@@ -91,7 +85,6 @@ export async function uploadProductImage(
     .createSignedUrl(filePath, 365 * 24 * 60 * 60); // 1 year in seconds
 
   if (signError) {
-    console.log("Signed URL error:", signError);
     throw new Error("Could not generate signed URL");
   }
 
@@ -104,8 +97,7 @@ export async function deleteProductImage(image_url: string) {
     // The URL will be like: https://xxx.supabase.co/storage/v1/object/public/products-images/filename.jpg
     const matches = image_url.match(/products-images\/(.+)$/);
     if (!matches) {
-      console.log("Could not extract file path from URL:", image_url);
-      return;
+      throw new Error("Invalid image URL format");
     }
     const filePath = matches[1];
 
@@ -114,10 +106,10 @@ export async function deleteProductImage(image_url: string) {
       .remove([filePath]);
 
     if (error) {
-      console.log("Delete error:", error);
+      throw new Error("Image could not be deleted");
     }
   } catch (error) {
-    console.log("Error processing delete:", error);
+    throw new Error("Error processing image deletion");
   }
 }
 
@@ -143,9 +135,35 @@ export async function getOrders(sortBy?: string) {
   const { data: orders, error } = await query;
 
   if (error) {
-    console.log(error);
     throw new Error("Orders could not be loaded");
   }
 
   return orders;
+}
+
+export async function getOrder(id: string): Promise<Order> {
+  const numericId = parseInt(id);
+
+  if (isNaN(numericId)) {
+    notFound();
+  }
+
+  const { data: order, error } = await supabase
+    .from("orders")
+    .select("*, order_items(*), users!orders_customer_id_fkey(*)")
+    .eq("id", numericId)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      notFound();
+    }
+    throw new Error(`Order could not be loaded: ${error.message}`);
+  }
+
+  if (!order) {
+    notFound();
+  }
+
+  return order;
 }

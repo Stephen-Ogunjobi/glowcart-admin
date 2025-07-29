@@ -3,14 +3,12 @@ import Link from "next/link";
 function NotFound() {
   return (
     <main className="mt-4 space-y-6 text-center">
-      <h1 className="text-3xl font-semibold">
-        This product could not be found
-      </h1>
+      <h1 className="text-3xl font-semibold">This order could not be found</h1>
       <Link
-        href="/products"
+        href="/admin/orders"
         className="inline-block px-6 py-3 text-lg bg-accent-500 text-primary-800"
       >
-        view all products
+        view all orders
       </Link>
     </main>
   );
