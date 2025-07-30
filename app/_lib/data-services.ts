@@ -70,7 +70,6 @@ export async function uploadProductImage(
   const fileName = `${productId}-${Date.now()}.${fileExt}`;
   const filePath = fileName;
 
-  // Upload the file to Supabase Storage
   const { error: uploadError } = await supabase.storage
     .from("products-images")
     .upload(filePath, imageFile);
@@ -150,7 +149,21 @@ export async function getOrder(id: string): Promise<Order> {
 
   const { data: order, error } = await supabase
     .from("orders")
-    .select("*, order_items(*), users!orders_customer_id_fkey(*)")
+    .select(
+      `
+      *,
+      order_items(
+        id,
+        quantity,
+        products(
+          id,
+          name,
+          price
+        )
+      ),
+      users!orders_customer_id_fkey(*)
+    `
+    )
     .eq("id", numericId)
     .single();
 
@@ -166,4 +179,21 @@ export async function getOrder(id: string): Promise<Order> {
   }
 
   return order;
+}
+
+export async function getOrderItems(id: string) {
+  const { data: orderItems, error } = await supabase
+    .from("order_items")
+    .select(
+      `
+  id,
+  quantity,
+  product:products(name, price)`
+    )
+    .eq("order_id", id);
+
+  if (error) {
+    throw new Error("Order items could not be loaded");
+  }
+  return orderItems;
 }
