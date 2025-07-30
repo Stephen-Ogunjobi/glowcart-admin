@@ -5,6 +5,7 @@ import {
   updateProduct,
   uploadProductImage,
   deleteProductImage,
+  updateOrderStatus,
 } from "./data-services";
 import { redirect } from "next/navigation";
 
@@ -50,4 +51,12 @@ export async function revalidateRedirect(id: string) {
   revalidatePath(`/admin/products/${id}`);
   revalidatePath("/admin/products");
   redirect("/admin/products");
+}
+
+export async function updateStatusChange(id: string, status: string) {
+  const data = await updateOrderStatus(id, status);
+
+  revalidatePath(`/admin/orders/${id}`);
+
+  return data;
 }

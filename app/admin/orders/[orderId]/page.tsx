@@ -1,6 +1,7 @@
 import { getOrder } from "@/app/_lib/data-services";
 import { notFound } from "next/navigation";
 import { OrderItem } from "@/app/_lib/types";
+import EditStatus from "@/app/_components/EditStatus";
 
 export default async function Page({
   params,
@@ -35,7 +36,7 @@ export default async function Page({
         >
           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
         </span>
-        <EditStatus />
+        <EditStatus order={order} />
       </div>
 
       {/* Order Summary */}
