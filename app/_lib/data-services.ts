@@ -108,6 +108,7 @@ export async function deleteProductImage(image_url: string) {
       throw new Error("Image could not be deleted");
     }
   } catch (error) {
+    console.log(error);
     throw new Error("Error processing image deletion");
   }
 }
@@ -196,4 +197,19 @@ export async function getOrderItems(id: string) {
     throw new Error("Order items could not be loaded");
   }
   return orderItems;
+}
+
+export async function updateOrderStatus(id: string, status: string) {
+  const { data, error } = await supabase
+    .from("orders")
+    .update({ status })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Order status could not be updatated");
+  }
+  return data;
 }

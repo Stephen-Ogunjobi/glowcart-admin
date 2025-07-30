@@ -35,13 +35,7 @@ export default async function Page({
         >
           {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
         </span>
-        <select name="" id="">
-          <option value="">Edit Status</option>
-          <option value="pending">Pending</option>
-          <option value="processing">Processing</option>
-          <option value="shipped">Shipped</option>
-          <option value="delivered">Delivered</option>
-        </select>
+        <EditStatus />
       </div>
 
       {/* Order Summary */}
