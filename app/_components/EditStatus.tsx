@@ -5,12 +5,15 @@ import { Order } from "@/app/_lib/types";
 import { updateStatusChange } from "@/app/_lib/action";
 
 export default function EditStatus({ order }: { order: Order }) {
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>(order.status);
 
   function handleStatus(e: React.ChangeEvent<HTMLSelectElement>) {
-    setStatus(e.target.value);
+    const newStatus = e.target.value;
+    setStatus(newStatus);
 
-    updateStatusChange(order.id.toString(), status);
+    if (newStatus) {
+      updateStatusChange(order.id.toString(), newStatus);
+    }
   }
   return (
     <select name="" id="" value={status} onChange={handleStatus}>

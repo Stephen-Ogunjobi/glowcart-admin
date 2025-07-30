@@ -209,7 +209,7 @@ export async function updateOrderStatus(id: string, status: string) {
 
   if (error) {
     console.log(error);
-    throw new Error("Order status could not be updatated");
+    throw new Error("Order status could not be updated");
   }
   return data;
 }
