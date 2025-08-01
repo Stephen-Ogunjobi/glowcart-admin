@@ -1,3 +1,5 @@
+"use client";
+
 import { UsersType } from "@/app/_lib/types";
 
 export default function User({ user }: { user: UsersType }) {
@@ -54,7 +56,7 @@ export default function User({ user }: { user: UsersType }) {
         className="px-6 py-4 whitespace-nowrap border-r"
         style={{ borderColor: "#374151" }} // border-gray-700
       >
-        {user.address.slice(0, 10)}
+        {`${user.address.slice(0, 15)} ...`}
       </td>
     </tr>
   );

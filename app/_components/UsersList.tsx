@@ -24,6 +24,16 @@ export default async function UsersList() {
                   borderColor: "#374151", // border-gray-700
                 }}
               >
+                ID
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 text-xs font-semibold tracking-wider text-left uppercase border-r"
+                style={{
+                  color: "var(--text-secondary)",
+                  borderColor: "#374151", // border-gray-700
+                }}
+              >
                 Name
               </th>
               <th
