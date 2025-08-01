@@ -15,6 +15,13 @@ export default async function Page({
     notFound();
   }
 
+  // Calculate total from order items
+  const calculatedTotal =
+    order.order_items?.reduce((total, item) => {
+      const itemTotal = item.quantity * (item.products?.price || 0) || 0;
+      return total + itemTotal;
+    }, 0) || 0;
+
   const statusColor: Record<string, string> = {
     pending: "text-yellow-200 bg-yellow-900/50 border-yellow-700",
     processing: "text-blue-200 bg-blue-900/50 border-blue-700",
@@ -59,7 +66,7 @@ export default async function Page({
               <p className="text-gray-300">
                 Total Amount:{" "}
                 <span className="text-gray-100">
-                  ${order.total.toLocaleString()}
+                  ${calculatedTotal.toLocaleString()}
                 </span>
               </p>
             </div>
