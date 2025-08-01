@@ -1,8 +1,6 @@
 import React from "react";
-import { getUsers } from "@/app/_lib/data-services";
 
-export default async function page() {
-  const users = await getUsers();
+export default function page() {
   return (
     <div>
       <p>Users</p>

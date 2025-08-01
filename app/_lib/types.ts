@@ -36,3 +36,11 @@ export interface Order {
     name: string;
   };
 }
+
+export interface UsersType {
+  id: number;
+  name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+}
