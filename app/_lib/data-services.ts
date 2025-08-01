@@ -213,3 +213,13 @@ export async function updateOrderStatus(id: string, status: string) {
   }
   return data;
 }
+
+export async function getUsers() {
+  const { data: users, error } = await supabase.from("users").select("*");
+
+  if (error) {
+    throw new Error("Users could not be loaded");
+  }
+
+  return users;
+}
