@@ -223,3 +223,50 @@ export async function getUsers() {
 
   return users;
 }
+
+export async function getDashboardMetrics() {
+  try {
+    // Get total counts
+    const [productsResult, ordersResult, usersResult] = await Promise.all([
+      supabase.from("products").select("id", { count: "exact" }),
+      supabase.from("orders").select("id, total", { count: "exact" }),
+      supabase.from("users").select("id", { count: "exact" }),
+    ]);
+
+    if (productsResult.error || ordersResult.error || usersResult.error) {
+      throw new Error("Could not load dashboard metrics");
+    }
+
+    const totalRevenue =
+      ordersResult.data?.reduce((sum, order) => sum + (order.total || 0), 0) ||
+      0;
+
+    return {
+      totalProducts: productsResult.count || 0,
+      totalOrders: ordersResult.count || 0,
+      totalUsers: usersResult.count || 0,
+      totalRevenue,
+    };
+  } catch (error) {
+    throw new Error("Could not load dashboard metrics");
+  }
+}
+
+export async function getRecentOrders(limit: number = 5) {
+  const { data: orders, error } = await supabase
+    .from("orders")
+    .select(
+      `
+      *,
+      users!orders_customer_id_fkey(name, email)
+    `
+    )
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    throw new Error("Recent orders could not be loaded");
+  }
+
+  return orders;
+}
