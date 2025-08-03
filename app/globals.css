@@ -40,6 +40,9 @@ body {
 
 @layer components {
   .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 3.2rem auto 1.6rem;
     width: 60px;
     aspect-ratio: 1;
