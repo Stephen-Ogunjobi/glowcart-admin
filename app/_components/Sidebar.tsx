@@ -1,23 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { FaHome, FaBox, FaClipboardList, FaUsers } from "react-icons/fa"; // Import icons
+import {
+  FaHome,
+  FaBox,
+  FaClipboardList,
+  FaUsers,
+  FaSignOutAlt,
+} from "react-icons/fa"; // Import icons
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [activeLink, setActiveLink] = useState<string>("");
+  const router = useRouter();
+  const [activeLink, setActiveLink] = useState<string>(pathname);
 
   const isLoginPage = pathname === "/admin/login";
 
-  useEffect(() => {
-    setActiveLink(pathname);
-  }, [pathname]);
-
   const handleLinkClick = (href: string) => {
     setActiveLink(href);
+  };
+
+  const handleLogout = () => {
+    // Clear the cookie
+    document.cookie = "isAdmin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    // Navigate to login page
+    router.push("/admin/login");
   };
 
   const linkClasses = (href: string) => {
@@ -95,6 +105,15 @@ export default function Sidebar() {
               Users
             </Link>
           </nav>
+          <button
+            onClick={handleLogout}
+            className={linkClasses("/admin/login")}
+            style={linkStyles("/admin/login")}
+            type="button"
+          >
+            <FaSignOutAlt className="mr-3" />
+            Logout
+          </button>
         </aside>
       )}
     </div>
