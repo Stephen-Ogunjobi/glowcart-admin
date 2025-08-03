@@ -62,6 +62,29 @@ body {
     animation: rotate 1s infinite linear;
   }
 
+  /* Mobile responsive utilities */
+  .mobile-menu-transition {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Ensure proper mobile viewport behavior */
+  @media (max-width: 1024px) {
+    .mobile-sidebar-padding {
+      padding-left: 0 !important;
+    }
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Mobile menu overlay animation */
+  .mobile-overlay {
+    transition: opacity 0.3s ease-in-out;
+  }
+
   @keyframes rotate {
     to {
       transform: rotate(1turn);
