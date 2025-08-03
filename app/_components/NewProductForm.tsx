@@ -158,10 +158,10 @@ export default function NewProductForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="relative">
-      <div className="max-h-[60vh] overflow-y-auto pr-2">
-        <div className="space-y-4">
+      <div className="max-h-[calc(100vh-8rem)] overflow-y-auto px-4 pb-20 md:pb-16">
+        <div className="space-y-6">
           {/* Grid layout for form fields */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left column */}
             <div className="space-y-4">
               <div>
@@ -253,7 +253,7 @@ export default function NewProductForm() {
                 <label className="block text-sm font-medium text-gray-300 mb-1">
                   Product Image
                 </label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md hover:border-gray-500 transition-colors duration-200">
+                <div className="mt-1 flex justify-center px-4 md:px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-md hover:border-gray-500 transition-colors duration-200">
                   <div className="space-y-1 text-center">
                     {imagePreview ? (
                       <div className="relative w-full h-32 mb-4">
@@ -266,7 +266,7 @@ export default function NewProductForm() {
                     ) : (
                       <FaImage className="mx-auto h-12 w-12 text-gray-400" />
                     )}
-                    <div className="flex text-sm text-gray-400">
+                    <div className="flex flex-col md:flex-row text-sm text-gray-400 items-center justify-center space-y-2 md:space-y-0">
                       <label className="relative cursor-pointer rounded-md font-medium text-indigo-500 hover:text-indigo-400 focus-within:outline-none">
                         <span>Upload a file</span>
                         <input
@@ -276,7 +276,7 @@ export default function NewProductForm() {
                           {...register("image")}
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
+                      <p className="md:pl-1">or drag and drop</p>
                     </div>
                     <p className="text-xs text-gray-500">
                       PNG, JPG, WEBP up to 5MB
@@ -306,7 +306,7 @@ export default function NewProductForm() {
             <textarea
               id="description"
               {...register("description")}
-              rows={2}
+              rows={3}
               className="block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             ></textarea>
             {errors.description && (
@@ -321,7 +321,7 @@ export default function NewProductForm() {
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Skin Types
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {SKIN_TYPES.map((type) => (
                 <label key={type.value} className="flex items-center space-x-2">
                   <input
@@ -341,36 +341,36 @@ export default function NewProductForm() {
             )}
           </div>
         </div>
+      </div>
 
-        {/* Fixed button group at the bottom */}
-        <div className="sticky bottom-0 flex justify-end mt-4 pt-3 space-x-4 border-t border-gray-600 bg-opacity-90 backdrop-blur-sm">
-          <button
-            type="button"
-            onClick={handleClose}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-md shadow-sm hover:bg-gray-400 transition-colors duration-200"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting || isUploading}
-            className="flex items-center px-4 py-2 space-x-2 text-sm font-medium rounded-md shadow-sm transition-colors duration-200"
-            style={{
-              backgroundColor: "var(--accent-buttons)",
-              color: "white",
-              opacity: isSubmitting || isUploading ? 0.7 : 1,
-            }}
-          >
-            {isSubmitting || isUploading ? (
-              <FaSpinner className="animate-spin" />
-            ) : (
-              <FaUpload />
-            )}
-            <span>
-              {isSubmitting || isUploading ? "Saving..." : "Save Changes"}
-            </span>
-          </button>
-        </div>
+      {/* Fixed button group at the bottom */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-end px-4 py-3 space-x-4 border-t border-gray-600 bg-gray-900 bg-opacity-90 backdrop-blur-sm">
+        <button
+          type="button"
+          onClick={handleClose}
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-md shadow-sm hover:bg-gray-400 transition-colors duration-200"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting || isUploading}
+          className="flex items-center px-4 py-2 space-x-2 text-sm font-medium rounded-md shadow-sm transition-colors duration-200"
+          style={{
+            backgroundColor: "var(--accent-buttons)",
+            color: "white",
+            opacity: isSubmitting || isUploading ? 0.7 : 1,
+          }}
+        >
+          {isSubmitting || isUploading ? (
+            <FaSpinner className="animate-spin" />
+          ) : (
+            <FaUpload />
+          )}
+          <span>
+            {isSubmitting || isUploading ? "Saving..." : "Save Changes"}
+          </span>
+        </button>
       </div>
     </form>
   );
