@@ -82,25 +82,27 @@ export default async function Page({
         </div>
 
         <div
-          className="p-6 border-t flex justify-end space-x-4"
+          className="p-4 sm:p-6 border-t"
           style={{ borderColor: "var(--border-stroke)" }}
         >
-          <EditProductSection product={product} />
+          <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
+            <EditProductSection product={product} />
 
-          <Link
-            href="/admin/products"
-            className="px-4 py-2 rounded-md transition-colors flex items-center space-x-2"
-            style={{
-              backgroundColor: "var(--text-secondary)",
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            <FaList />
-            <span>All Products</span>
-          </Link>
+            <Link
+              href="/admin/products"
+              className="px-4 py-2 rounded-md transition-colors flex items-center justify-center space-x-2 text-sm sm:text-base"
+              style={{
+                backgroundColor: "var(--text-secondary)",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              <FaList className="text-sm sm:text-base" />
+              <span>All Products</span>
+            </Link>
 
-          <DeleteProduct productId={productId} />
+            <DeleteProduct productId={productId} />
+          </div>
         </div>
       </div>
     </div>

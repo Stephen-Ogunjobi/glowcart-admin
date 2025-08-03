@@ -8,7 +8,7 @@ export default function EditButton() {
   const { handleOpen } = useModal();
   return (
     <button
-      className="px-4 py-2 rounded-md transition-colors flex items-center space-x-2"
+      className="px-4 py-2 rounded-md text-sm sm:text-base transition-colors flex items-center justify-center space-x-2"
       style={{
         backgroundColor: "var(--accent-buttons)",
         color: "white",

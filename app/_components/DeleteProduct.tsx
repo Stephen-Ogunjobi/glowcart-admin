@@ -26,7 +26,7 @@ export default function DeleteProduct({ productId }: { productId: string }) {
     <>
       <button
         onClick={() => setShowDeleteModal(true)}
-        className="px-4 py-2 rounded-md transition-colors flex items-center space-x-2"
+        className="px-4 py-2 rounded-md transition-colors text-sm sm:text-base flex items-center justify-center space-x-2"
         style={{
           backgroundColor: "#dc2626",
           color: "white",
