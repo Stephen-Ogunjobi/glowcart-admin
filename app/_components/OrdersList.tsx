@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { getOrders } from "@/app/_lib/data-services";
-import Order from "./Order";
 import { Order as OrderType } from "@/app/_lib/types";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Order from "./Order";
 
 export default function OrdersList() {
   const [orders, setOrders] = useState<OrderType[]>([]);
@@ -18,13 +18,11 @@ export default function OrdersList() {
         setOrders(data);
       } catch (error) {
         console.error("Failed to fetch orders:", error);
-      } 
+      }
     }
 
     fetchOrders();
-  }, [activeSort]); 
-
-  
+  }, [activeSort]);
 
   return (
     <div
