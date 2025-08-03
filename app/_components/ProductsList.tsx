@@ -7,7 +7,7 @@ export default async function ProductsList() {
   const products = await getProducts();
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-6 ">
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}

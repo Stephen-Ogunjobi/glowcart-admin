@@ -10,7 +10,6 @@ export default function DeleteProduct({ productId }: { productId: string }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   async function handleDelete() {
-    // Show loading toast
     const loadingToast = toast.loading("Deleting product...");
 
     try {

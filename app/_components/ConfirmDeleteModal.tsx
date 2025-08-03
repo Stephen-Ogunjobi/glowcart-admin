@@ -35,7 +35,7 @@ export default function ConfirmDeleteModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div className="fixed h-screen inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div
         className="relative w-full max-w-md p-6 rounded-lg shadow-2xl"
         style={{
@@ -62,7 +62,7 @@ export default function ConfirmDeleteModal({
           </div>
 
           <h3 className="mb-2 text-lg font-semibold">Confirm Delete</h3>
-          <p className="mb-6 text-sm text-gray-600">
+          <p className="mb-6 text-sm text-gray-400">
             Are you sure you want to delete{" "}
             {productName ? (
               <span className="font-medium">{productName}</span>

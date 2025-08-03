@@ -31,10 +31,8 @@ export default function ProductCard({ product }: { product: Product }) {
   );
 
   async function handleDelete() {
-    // Show loading toast
     const loadingToast = toast.loading("Deleting product...");
 
-    // Optimistically update UI
     startTransition(() => {
       addOptimisticProduct(product);
     });
@@ -44,13 +42,11 @@ export default function ProductCard({ product }: { product: Product }) {
       await revalidateProducts();
       toast.success("Product deleted successfully", { id: loadingToast });
     } catch (error) {
-      console.error(error);
       toast.error("Failed to delete product", { id: loadingToast });
       window.location.reload();
     }
   }
 
-  // If product is optimistically deleted, don't render it
   if (optimisticProduct.deleted) {
     return null;
   }
