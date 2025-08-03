@@ -1,6 +1,8 @@
 import { getDashboardMetrics, getRecentOrders } from "@/app/_lib/data-services";
 import DashboardCard from "@/app/_components/DashboardCard";
 import RecentOrdersTable from "@/app/_components/RecentOrdersTable";
+import LowStockAlert from "@/app/_components/LowStockAlert";
+import MostOrderedProducts from "@/app/_components/MostOrderedProducts";
 
 // Icons as SVG components
 const UsersIcon = () => (
@@ -88,7 +90,6 @@ export default async function Homepage() {
         </p>
       </div>
 
-      {/* Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <DashboardCard
           title="Total Orders"
@@ -112,7 +113,11 @@ export default async function Homepage() {
         />
       </div>
 
-      {/* Recent Orders */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <LowStockAlert />
+        <MostOrderedProducts />
+      </div>
+
       <div className="mt-8">
         <RecentOrdersTable orders={recentOrders} />
       </div>

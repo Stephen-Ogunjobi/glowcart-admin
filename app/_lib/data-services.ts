@@ -226,7 +226,6 @@ export async function getUsers() {
 
 export async function getDashboardMetrics() {
   try {
-    // Get total counts
     const [productsResult, ordersResult, usersResult] = await Promise.all([
       supabase.from("products").select("id", { count: "exact" }),
       supabase.from("orders").select("id, total", { count: "exact" }),

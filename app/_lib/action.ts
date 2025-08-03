@@ -17,18 +17,15 @@ export async function CreateUpdateData(
 
   if (imageFile && updatedProduct.id) {
     try {
-      // If there's an existing image, delete it first
       if (updatedProduct.image_url) {
         await deleteProductImage(updatedProduct.image_url);
       }
 
-      // Upload the new image
       const newImageUrl = await uploadProductImage(
         imageFile,
         updatedProduct.id
       );
 
-      // Add the new image URL to the product data
       finalUpdatedProduct.image_url = newImageUrl;
     } catch (error) {
       console.error("Image upload failed:", error);
