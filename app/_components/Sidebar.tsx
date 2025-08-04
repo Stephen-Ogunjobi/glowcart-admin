@@ -27,6 +27,10 @@ export default function Sidebar({
   const router = useRouter();
   const [activeLink, setActiveLink] = useState<string>(pathname);
 
+  useEffect(() => {
+    setActiveLink(pathname);
+  }, [pathname]);
+
   const isLoginPage = pathname === "/admin/login";
 
   const handleLinkClick = (href: string) => {

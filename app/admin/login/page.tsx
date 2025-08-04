@@ -22,61 +22,63 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen ">
-      <div className="text-center mb-8">
-        <div className="flex justify-center mb-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 -mt-12 sm:mt-0">
+      <div className="text-center mb-6 md:mb-8">
+        <div className="flex justify-center mb-3 md:mb-4">
           <Image
             src="/Elegant GlowCart Skincare Logo.png"
             alt="logo"
-            width={120}
-            height={120}
-            className="rounded-full shadow-lg"
+            width={100}
+            height={100}
+            className="rounded-full shadow-lg w-24 h-24 md:w-32 md:h-32"
           />
         </div>
-        <h1 className="text-2xl font-bold ">GlowCart</h1>
+        <h1 className="text-xl md:text-2xl font-bold">GlowCart</h1>
       </div>
 
       {/* Login Form Section */}
-      <div className="w-full max-w-md px-8 py-8 bg-gray-900 shadow-xl rounded-2xl border border-gray-300">
-        <h3 className="text-2xl font-bold text-center text-gray-200 mb-6">
+      <div className="w-full max-w-md px-4 sm:px-6 md:px-8 py-6 md:py-8 bg-gray-900 shadow-xl rounded-2xl border border-gray-300">
+        <h3 className="text-xl md:text-2xl font-bold text-center text-gray-200 mb-4 md:mb-6">
           Admin Login
         </h3>
         <form action="" onSubmit={handleSubmit}>
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <div>
               <label
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-300 mb-1.5 md:mb-2"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
                 type="email"
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
               />
             </div>
             <div>
               <label
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-300 mb-1.5 md:mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
                 type="password"
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
               />
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pt-2 md:pt-4">
               <button
                 type="submit"
-                className="w-full px-6 py-3 text-white bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg hover:from-pink-600 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 font-medium text-sm"
+                className="w-full px-4 md:px-6 py-2.5 md:py-3 text-white bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg hover:from-pink-600 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 font-medium text-sm md:text-base"
               >
                 Sign In
               </button>
