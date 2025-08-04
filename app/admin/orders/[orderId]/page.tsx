@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import { OrderItem } from "@/app/_lib/types";
 import EditStatus from "@/app/_components/EditStatus";
 
-type Props = {
+type PageProps = {
   params: { orderId: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params }: PageProps) {
   const { orderId } = params;
   const order = await getOrder(orderId);
 
@@ -15,7 +16,6 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
-  // Calculate total from order items
   const calculatedTotal =
     order.order_items?.reduce((total, item) => {
       const itemTotal = item.quantity * (item.products?.price || 0) || 0;
