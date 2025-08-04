@@ -4,12 +4,12 @@ import { OrderItem } from "@/app/_lib/types";
 import EditStatus from "@/app/_components/EditStatus";
 
 type PageProps = {
-  params: { orderId: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ orderId: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export default async function Page({ params }: PageProps) {
-  const { orderId } = params;
+  const { orderId } = await params;
   const order = await getOrder(orderId);
 
   if (!order) {
