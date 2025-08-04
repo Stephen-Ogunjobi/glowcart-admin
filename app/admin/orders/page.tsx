@@ -5,9 +5,9 @@ import OrdersOperations from "@/app/_components/OrdersOperations";
 
 export default function page() {
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 p-4 sm:p-6">
       <div
-        className="flex items-center justify-between p-4 rounded-lg border"
+        className="flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between p-4 rounded-lg border"
         style={{
           backgroundColor: "var(--sidebar)",
           borderColor: "var(--border-stroke)",

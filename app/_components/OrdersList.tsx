@@ -32,7 +32,8 @@ export default function OrdersList() {
         backgroundColor: "#111827", // bg-gray-900
       }}
     >
-      <div className="overflow-x-auto">
+      {/* Desktop Table View */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700/50">
           <thead style={{ backgroundColor: "var(--sidebar)" }}>
             <tr>
@@ -103,10 +104,17 @@ export default function OrdersList() {
             }}
           >
             {orders.map((order) => (
-              <Order order={order} key={order.id} />
+              <Order order={order} key={order.id} view="table" />
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden divide-y divide-gray-700/50">
+        {orders.map((order) => (
+          <Order order={order} key={order.id} view="card" />
+        ))}
       </div>
     </div>
   );

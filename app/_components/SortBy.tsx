@@ -25,16 +25,16 @@ export default function SortBy() {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="w-full sm:w-auto">
       <span
-        className="text-sm font-medium"
+        className="block sm:inline text-sm font-medium mb-2 sm:mb-0 sm:mr-2"
         style={{ color: "var(--text-secondary)" }}
       >
         Sort:
       </span>
-      <div className="relative">
+      <div className="relative w-full sm:w-auto min-w-[200px]">
         <select
-          className="appearance-none bg-gray-900 pl-3 pr-10 py-1.5 text-sm font-medium rounded-md border focus:outline-none focus:ring-2 focus:ring-opacity-20"
+          className="w-full appearance-none bg-gray-900 pl-3 pr-10 py-1.5 text-sm font-medium rounded-md border focus:outline-none focus:ring-2 focus:ring-opacity-20"
           style={{
             borderColor: "var(--border-stroke)",
             color: "var(--text-primary)",

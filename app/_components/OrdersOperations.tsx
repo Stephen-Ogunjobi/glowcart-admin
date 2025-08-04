@@ -4,7 +4,7 @@ import SortBy from "./SortBy";
 
 export default function OrdersOperations() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <FilterBy />
       <SortBy />
     </div>
