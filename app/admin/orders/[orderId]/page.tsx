@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { OrderItem } from "@/app/_lib/types";
 import EditStatus from "@/app/_components/EditStatus";
 
-export default async function Page({
-  params,
-}: {
+type Props = {
   params: { orderId: string };
-}) {
+};
+
+export default async function Page({ params }: Props) {
   const { orderId } = params;
   const order = await getOrder(orderId);
 

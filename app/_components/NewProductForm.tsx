@@ -6,6 +6,7 @@ import { Product } from "@/app/_lib/types";
 import { useModal } from "@/app/_context/ModalContext";
 import { useState, useEffect } from "react";
 import { FaSpinner, FaUpload, FaImage } from "react-icons/fa";
+import Image from "next/image";
 import {
   createProduct,
   uploadProductImage,
@@ -257,9 +258,11 @@ export default function NewProductForm() {
                   <div className="space-y-1 text-center">
                     {imagePreview ? (
                       <div className="relative w-full h-32 mb-4">
-                        <img
+                        <Image
                           src={imagePreview}
                           alt="Preview"
+                          width={200}
+                          height={128}
                           className="mx-auto h-full object-contain rounded-md"
                         />
                       </div>

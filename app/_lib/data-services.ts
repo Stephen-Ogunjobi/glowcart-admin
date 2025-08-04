@@ -246,7 +246,7 @@ export async function getDashboardMetrics() {
       totalUsers: usersResult.count || 0,
       totalRevenue,
     };
-  } catch (error) {
+  } catch {
     throw new Error("Could not load dashboard metrics");
   }
 }

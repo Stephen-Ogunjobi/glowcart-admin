@@ -8,7 +8,6 @@ interface ConfirmDeleteModalProps {
   onClose: () => void;
   onConfirm: () => Promise<void>;
   productName?: string;
-  isDeleting?: boolean;
 }
 
 export default function ConfirmDeleteModal({
@@ -16,7 +15,6 @@ export default function ConfirmDeleteModal({
   onClose,
   onConfirm,
   productName,
-  isDeleting = false,
 }: ConfirmDeleteModalProps) {
   const [isProcessing, setIsProcessing] = useState(false);
 

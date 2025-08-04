@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
       await deleteProduct(product.id);
       await revalidateProducts();
       toast.success("Product deleted successfully", { id: loadingToast });
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete product", { id: loadingToast });
       window.location.reload();
     }
