@@ -3,6 +3,12 @@ import { ReactNode } from "react";
 import "./globals.css";
 import { ModalContextProvider } from "./_context/ModalContext";
 import { Toaster } from "react-hot-toast";
+import { validateEnvironmentVariables } from "./_lib/env-validation";
+
+// Validate environment variables on app startup
+if (typeof window === "undefined") {
+  validateEnvironmentVariables();
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
