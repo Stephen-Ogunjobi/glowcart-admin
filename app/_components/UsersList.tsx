@@ -12,7 +12,8 @@ export default async function UsersList() {
         backgroundColor: "#111827", // bg-gray-900
       }}
     >
-      <div className="overflow-x-auto">
+      {/* Desktop Table View */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700/50">
           <thead style={{ backgroundColor: "var(--sidebar)" }}>
             <tr>
@@ -76,10 +77,17 @@ export default async function UsersList() {
             }}
           >
             {users.map((user) => (
-              <User user={user} key={user.id} />
+              <User user={user} key={user.id} view="table" />
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden divide-y divide-gray-700/50">
+        {users.map((user) => (
+          <User user={user} key={user.id} view="card" />
+        ))}
       </div>
     </div>
   );
