@@ -1,6 +1,7 @@
 import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
-import { Product, Order } from "@/app/_lib/types";
+import { Product, Order, BlogType } from "@/app/_lib/types";
+import slugify from "slugify";
 
 export async function getProducts() {
   const { data: products, error } = await supabase.from("products").select("*");
@@ -268,4 +269,57 @@ export async function getRecentOrders(limit: number = 5) {
   }
 
   return orders;
+}
+
+export async function uploadBlogImage(imageFile: File, blogId: string) {
+  if (!imageFile) return;
+
+  const fileExt = imageFile.name.split(".").pop();
+  const fileName = `${blogId}-${Date.now()}.${fileExt}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from("blogs-images")
+    .upload(fileName, imageFile);
+
+  if (uploadError) {
+    throw new Error("Image could not be uploaded");
+  }
+}
+
+export async function createSaveBlog({
+  title,
+  excerpt,
+  content,
+  cover_image,
+  author = "Admin",
+  published = false,
+}: BlogType) {
+  try {
+    const slug = slugify(title, { lower: true, strict: true });
+
+    const { data, error } = await supabase
+      .from("blogs")
+      .insert([
+        {
+          title,
+          slug,
+          excerpt,
+          content,
+          cover_image,
+          author,
+          published,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error("Blog could not be created");
+    }
+
+    return { data, error };
+  } catch (error) {
+    console.log(error);
+    throw new Error("Blog could not be created");
+  }
 }

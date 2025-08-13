@@ -44,3 +44,14 @@ export interface UsersType {
   phone_number: string;
   address: string;
 }
+
+export interface BlogType {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  cover_image: string;
+  author: string;
+  published: boolean;
+}
