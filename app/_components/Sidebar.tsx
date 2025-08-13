@@ -12,6 +12,7 @@ import {
   FaSignOutAlt,
   FaBars,
   FaTimes,
+  FaNewspaper,
 } from "react-icons/fa";
 
 interface SidebarProps {
@@ -127,6 +128,15 @@ export default function Sidebar({
         >
           <FaClipboardList className="mr-3" />
           Orders
+        </Link>
+        <Link
+          href="/admin/blogs"
+          className={linkClasses("/admin/blogs")}
+          style={linkStyles("/admin/blogs")}
+          onClick={() => handleLinkClick("/admin/blogs")}
+        >
+          <FaNewspaper className="mr-3" />
+          Blogs
         </Link>
         <Link
           href="/admin/users"

@@ -323,3 +323,13 @@ export async function createSaveBlog({
     throw new Error("Blog could not be created");
   }
 }
+
+export async function getBlogs() {
+  const { data: blogs, error } = await supabase.from("blogs").select("*");
+
+  if (error) {
+    throw new Error("Blogs could not be loaded");
+  }
+
+  return blogs;
+}
