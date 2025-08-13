@@ -204,15 +204,6 @@ export default function Sidebar({
           color: "var(--text-primary)",
         }}
       >
-        {/* Close button for mobile */}
-        <button
-          onClick={() => setIsMobileMenuOpen && setIsMobileMenuOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-md hover:bg-opacity-10 transition-colors duration-200"
-          style={{ color: "var(--text-primary)" }}
-          aria-label="Close mobile menu"
-        >
-          <FaTimes size={20} />
-        </button>
         {sidebarContent}
       </aside>
     </>
