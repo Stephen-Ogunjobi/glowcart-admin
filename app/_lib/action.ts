@@ -1,11 +1,14 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Product } from "@/app/_lib/types";
+import { Product, CreateBlogInput } from "@/app/_lib/types";
 import {
   updateProduct,
   uploadProductImage,
   deleteProductImage,
   updateOrderStatus,
+  createSaveBlog,
+  uploadBlogImage,
+  updateBlog,
 } from "./data-services";
 import { redirect } from "next/navigation";
 
@@ -44,6 +47,10 @@ export async function revalidateProducts() {
   revalidatePath("/admin/products");
 }
 
+export async function revalidateBlogs() {
+  revalidatePath("/admin/blogs");
+}
+
 export async function revalidateRedirect(id: string) {
   revalidatePath(`/admin/products/${id}`);
   revalidatePath("/admin/products");
@@ -56,4 +63,20 @@ export async function updateStatusChange(id: string, status: string) {
   revalidatePath(`/admin/orders/${id}`);
 
   return data;
+}
+
+export async function createBlogAction(
+  form: CreateBlogInput,
+  imageFile?: File
+) {
+  const { data } = await createSaveBlog(form);
+
+  let cover_image = form.cover_image;
+  if (imageFile) {
+    cover_image = await uploadBlogImage(imageFile, String(data.id));
+    await updateBlog(data.id, { cover_image });
+  }
+
+  revalidatePath("/admin/blogs");
+  redirect("/admin/blogs");
 }

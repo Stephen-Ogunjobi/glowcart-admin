@@ -117,6 +117,7 @@ export default function ProductCard({ product }: { product: Product }) {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDelete}
         productName={name}
+        itemType="product"
       />
     </>
   );

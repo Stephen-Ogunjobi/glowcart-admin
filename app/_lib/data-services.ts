@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
-import { Product, Order, BlogType } from "@/app/_lib/types";
+import { Product, Order, BlogType, CreateBlogInput } from "@/app/_lib/types";
 import slugify from "slugify";
 
 export async function getProducts() {
@@ -271,8 +271,11 @@ export async function getRecentOrders(limit: number = 5) {
   return orders;
 }
 
-export async function uploadBlogImage(imageFile: File, blogId: string) {
-  if (!imageFile) return;
+export async function uploadBlogImage(
+  imageFile: File,
+  blogId: string
+): Promise<string> {
+  if (!imageFile) throw new Error("No image provided");
 
   const fileExt = imageFile.name.split(".").pop();
   const fileName = `${blogId}-${Date.now()}.${fileExt}`;
@@ -284,6 +287,16 @@ export async function uploadBlogImage(imageFile: File, blogId: string) {
   if (uploadError) {
     throw new Error("Image could not be uploaded");
   }
+
+  const { data: signedData, error: signError } = await supabase.storage
+    .from("blogs-images")
+    .createSignedUrl(fileName, 365 * 24 * 60 * 60);
+
+  if (signError || !signedData?.signedUrl) {
+    throw new Error("Could not generate signed URL");
+  }
+
+  return signedData.signedUrl;
 }
 
 export async function createSaveBlog({
@@ -293,7 +306,7 @@ export async function createSaveBlog({
   cover_image,
   author = "Admin",
   published = false,
-}: BlogType) {
+}: CreateBlogInput) {
   try {
     const slug = slugify(title, { lower: true, strict: true });
 
@@ -332,4 +345,41 @@ export async function getBlogs() {
   }
 
   return blogs;
+}
+
+export async function getBlog(id: number) {
+  const { data: blog, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    notFound();
+  }
+
+  return blog;
+}
+
+export async function deleteBlog(id: number) {
+  const { error } = await supabase.from("blogs").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Blog could not be deleted");
+  }
+}
+
+export async function updateBlog(blogId: number, fields: Partial<BlogType>) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .update(fields)
+    .eq("id", blogId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Blog could not be updated");
+  }
+
+  return data;
 }

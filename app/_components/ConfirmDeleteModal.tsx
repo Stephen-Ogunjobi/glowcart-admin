@@ -8,6 +8,7 @@ interface ConfirmDeleteModalProps {
   onClose: () => void;
   onConfirm: () => Promise<void>;
   productName?: string;
+  itemType?: string;
 }
 
 export default function ConfirmDeleteModal({
@@ -15,6 +16,7 @@ export default function ConfirmDeleteModal({
   onClose,
   onConfirm,
   productName,
+  itemType = "item",
 }: ConfirmDeleteModalProps) {
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -65,7 +67,7 @@ export default function ConfirmDeleteModal({
             {productName ? (
               <span className="font-medium">{productName}</span>
             ) : (
-              "this product"
+              `this ${itemType}`
             )}
             ? This action cannot be undone.
           </p>

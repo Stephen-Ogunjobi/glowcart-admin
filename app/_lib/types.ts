@@ -55,3 +55,5 @@ export interface BlogType {
   author: string;
   published: boolean;
 }
+
+export type CreateBlogInput = Omit<BlogType, "id" | "slug">;
