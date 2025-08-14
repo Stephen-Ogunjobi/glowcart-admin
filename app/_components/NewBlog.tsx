@@ -3,7 +3,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import DOMPurify from "dompurify";
 import { FaUpload } from "react-icons/fa";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
@@ -39,11 +38,10 @@ export default function NewBlog() {
   const selectedFile = watch("imageFile")?.[0];
 
   const onSubmit = async (values: FormFields) => {
-    const sanitizedContent = DOMPurify.sanitize(values.content);
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("excerpt", values.excerpt);
-    formData.append("content", sanitizedContent);
+    formData.append("content", values.content);
     formData.append("cover_image", values.cover_image || "");
     formData.append("author", values.author || "Admin");
     formData.append("published", String(Boolean(values.published)));

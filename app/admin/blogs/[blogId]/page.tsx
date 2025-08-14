@@ -2,6 +2,7 @@ import React from "react";
 import { getBlog } from "@/app/_lib/data-services";
 import { notFound } from "next/navigation";
 import Heading from "@/app/_components/Heading";
+import MarkdownContent from "@/app/_components/MarkdownContent";
 import Link from "next/link";
 import Image from "next/image";
 import { FaArrowLeft } from "react-icons/fa";
@@ -95,10 +96,9 @@ export default async function BlogPage({
             >
               Content
             </h3>
-            <div
+            <MarkdownContent
               className="prose prose-sm max-w-none"
-              style={{ color: "var(--text-secondary)" }}
-              dangerouslySetInnerHTML={{ __html: blog.content }}
+              content={blog.content}
             />
           </div>
 
