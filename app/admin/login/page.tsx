@@ -7,6 +7,8 @@ import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("admin@example.com");
+
+  //auto login
   const [password, setPassword] = useState("admin123");
   const router = useRouter();
 
