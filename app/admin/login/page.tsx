@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("admin@example.com");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("admin123");
   const router = useRouter();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
